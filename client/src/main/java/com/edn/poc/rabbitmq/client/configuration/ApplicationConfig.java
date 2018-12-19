@@ -13,6 +13,9 @@ public class ApplicationConfig {
     @Value("${mq.exchange.name}")
     private String exchange;
 
+    @Value("${mq.queue.request}")
+    private String queueRequest;
+
     @Value("${mq.routing.key}")
     private String routingKey;
 }

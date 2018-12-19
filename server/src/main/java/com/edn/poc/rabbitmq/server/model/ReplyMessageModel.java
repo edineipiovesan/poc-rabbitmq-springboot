@@ -1,22 +1,21 @@
-package com.edn.poc.rabbitmq.client.model;
+package com.edn.poc.rabbitmq.server.model;
 
-public class MessageModel {
+public class ReplyMessageModel {
 
     private String id;
     private String name;
     private Long number;
 
     @java.beans.ConstructorProperties({"id", "name", "number"})
-    public MessageModel(String id, String name, Long number) {
+    public ReplyMessageModel(String id, String name, Long number) {
         this.id = id;
         this.name = name;
         this.number = number;
     }
 
-    public MessageModel() {
+    public ReplyMessageModel() {
 
     }
-
 
     public String getId() {
         return this.id;
@@ -44,8 +43,8 @@ public class MessageModel {
 
     public boolean equals(final Object o) {
         if (o == this) return true;
-        if (!(o instanceof MessageModel)) return false;
-        final MessageModel other = (MessageModel) o;
+        if (!(o instanceof ReplyMessageModel)) return false;
+        final ReplyMessageModel other = (ReplyMessageModel) o;
         if (!other.canEqual((Object) this)) return false;
         final Object this$id = this.getId();
         final Object other$id = other.getId();
@@ -60,7 +59,7 @@ public class MessageModel {
     }
 
     protected boolean canEqual(final Object other) {
-        return other instanceof MessageModel;
+        return other instanceof ReplyMessageModel;
     }
 
     public int hashCode() {
@@ -76,6 +75,6 @@ public class MessageModel {
     }
 
     public String toString() {
-        return "MessageModel(id=" + this.getId() + ", name=" + this.getName() + ", number=" + this.getNumber() + ")";
+        return "ReplyMessageModel(id=" + this.getId() + ", name=" + this.getName() + ", number=" + this.getNumber() + ")";
     }
 }

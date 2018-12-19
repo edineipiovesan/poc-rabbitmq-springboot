@@ -19,12 +19,12 @@ services:
       timeout: 10s
       retries: 5
 
-  server:
+  server-1:
     build: 
       context: ./server
       args: 
         - JAR_FILE=target/server-0.0.1-SNAPSHOT.jar
-    container_name: server
+    container_name: server-1
     ports: 
       - 8090:8080
     networks: 
@@ -32,14 +32,66 @@ services:
     depends_on: 
       - rabbitmq
 
-  client:
+  server-2:
     build: 
       context: ./server
       args: 
         - JAR_FILE=target/server-0.0.1-SNAPSHOT.jar
-    container_name: client
+    container_name: server-2
     ports: 
       - 8091:8080
+    networks: 
+      - backend
+    depends_on: 
+      - rabbitmq
+
+  server-3:
+    build: 
+      context: ./server
+      args: 
+        - JAR_FILE=target/server-0.0.1-SNAPSHOT.jar
+    container_name: server-3
+    ports: 
+      - 8092:8080
+    networks: 
+      - backend
+    depends_on: 
+      - rabbitmq
+
+  server-4:
+    build: 
+      context: ./server
+      args: 
+        - JAR_FILE=target/server-0.0.1-SNAPSHOT.jar
+    container_name: server-4
+    ports: 
+      - 8093:8080
+    networks: 
+      - backend
+    depends_on: 
+      - rabbitmq
+
+  client-1:
+    build: 
+      context: ./client
+      args: 
+        - JAR_FILE=target/client-0.0.1-SNAPSHOT.jar
+    container_name: client-1
+    ports: 
+      - 8098:8080
+    networks: 
+      - backend
+    depends_on: 
+      - rabbitmq
+
+  client-2:
+    build: 
+      context: ./client
+      args: 
+        - JAR_FILE=target/client-0.0.1-SNAPSHOT.jar
+    container_name: client-2
+    ports: 
+      - 8099:8080
     networks: 
       - backend
     depends_on: 
