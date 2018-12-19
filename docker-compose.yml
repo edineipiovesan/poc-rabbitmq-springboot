@@ -1,0 +1,50 @@
+version: "3"
+services:
+
+  rabbitmq:
+    image: rabbitmq:3-management
+    container_name: rabbitmq
+    hostname: poc-rabbit
+    ports: 
+      - 5672:5672
+      - 9090:15672
+    environment: 
+      - RABBITMQ_DEFAULT_USER=user
+      - RABBITMQ_DEFAULT_PASS=pass
+    networks: 
+      - backend
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:9090"]
+      interval: 30s
+      timeout: 10s
+      retries: 5
+
+  server:
+    build: 
+      context: ./server
+      args: 
+        - JAR_FILE=target/server-0.0.1-SNAPSHOT.jar
+    container_name: server
+    ports: 
+      - 8090:8080
+    networks: 
+      - backend
+    depends_on: 
+      - rabbitmq
+
+  client:
+    build: 
+      context: ./server
+      args: 
+        - JAR_FILE=target/server-0.0.1-SNAPSHOT.jar
+    container_name: client
+    ports: 
+      - 8091:8080
+    networks: 
+      - backend
+    depends_on: 
+      - rabbitmq
+
+networks: 
+  backend: 
+    driver: bridge

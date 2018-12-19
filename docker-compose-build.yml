@@ -1,0 +1,19 @@
+version: "3"
+services:
+  maven_server:
+    image: maven:3-jdk-8-alpine
+    volumes: 
+      - ./server:/usr/src/mymaven 
+      - $HOME/.m2:/root/.m2
+      - ./server/target:/usr/src/mymaven/target
+    working_dir: /usr/src/mymaven
+    command: mvn package -DskipTests
+
+  maven_client:
+    image: maven:3-jdk-8-alpine
+    volumes: 
+      - ./client:/usr/src/mymaven 
+      - $HOME/.m2:/root/.m2
+      - ./client/target:/usr/src/mymaven/target
+    working_dir: /usr/src/mymaven
+    command: mvn package -DskipTests
