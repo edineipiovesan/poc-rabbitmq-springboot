@@ -1,3 +1,5 @@
+[![Build Status](https://travis-ci.org/edineipiovesan/poc-rabbitmq-springboot.svg?branch=master)](https://travis-ci.org/edineipiovesan/poc-rabbitmq-springboot)
+
 # RabbitMQ
 Proof of concept using RabbitMQ with Spring Boot application.
 
@@ -26,10 +28,3 @@ A docker-compose in root directory can launch a RabbitMQ, 4 server and 1 client 
 - From root directory, run ```docker-compose -f docker-compose.yml up --build -d```
 
 It willl build Docker images and all containers. Containers can be listed with ```docker ps``` and logs can be found individually using ```docker logs <container-id> --follow```.
-
-# TODO
-
-- Write tests
-- Log service
-- Setup kubernetes
-- Write C# .Net CORE consumer
