@@ -20,13 +20,17 @@ jobs:
   include:
     - stage: compile
       name: "Compile server project"
-      install: mvn package -DskipTests -f server/pom.xml
+      install: true
+      script: mvn package -DskipTests -f server/pom.xml
     - stage: compile
       name: "Compile client project"
-      install: mvn package -DskipTests -f client/pom.xml
+      install: true
+      script: mvn package -DskipTests -f client/pom.xml
     - stage: test
       name: "Test server project"
-      install: mvn test -f server/pom.xml
+      install: true
+      script: mvn test -f server/pom.xml
     - stage: test
       name: "Test client project"
-      install: mvn test -f client/pom.xml
+      install: true
+      script: mvn test -f client/pom.xml
