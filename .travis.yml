@@ -1,4 +1,6 @@
 language: java
+jdk:
+  - openjdk8
 services:
   - docker
 
@@ -10,17 +12,21 @@ stages:
   - compile
   - test
 
+cache:
+  directories:
+    - $HOME/.m2
+
 jobs:
   include:
     - stage: compile
       name: "Compile server project"
-      script: mvn package -DskipTests -f server/pom.xml
+      install: mvn package -DskipTests -f server/pom.xml
     - stage: compile
       name: "Compile client project"
-      script: mvn package -DskipTests -f client/pom.xml
+      install: mvn package -DskipTests -f client/pom.xml
     - stage: test
       name: "Test server project"
-      script: mvn test -f server/pom.xml
+      install: mvn test -f server/pom.xml
     - stage: test
       name: "Test client project"
-      script: mvn test -f client/pom.xml
+      install: mvn test -f client/pom.xml
