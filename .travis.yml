@@ -13,14 +13,14 @@ stages:
 jobs:
   include:
     - stage: compile
-      name: "Compile server project with Maven"
+      name: "Compile server project"
       script: mvn package -DskipTests -f server/pom.xml
     - stage: compile
-      name: "Compile client project with Maven"
+      name: "Compile client project"
       script: mvn package -DskipTests -f client/pom.xml
     - stage: test
-      name: "Compile client project with Maven"
-      script: mvn test -f client/pom.xml
+      name: "Test server project"
+      script: mvn test -f server/pom.xml
     - stage: test
-      name: "Compile client project with Maven"
+      name: "Test client project"
       script: mvn test -f client/pom.xml
