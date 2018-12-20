@@ -1,0 +1,26 @@
+language: java
+services:
+  - docker
+
+branches:
+  only: 
+    - master
+
+stages:
+  - compile
+  - test
+
+jobs:
+  include:
+    - stage: compile
+      name: "Compile server project with Maven"
+      script: mvn package -DskipTests -f server/pom.xml
+    - stage: compile
+      name: "Compile client project with Maven"
+      script: mvn package -DskipTests -f client/pom.xml
+    - stage: test
+      name: "Compile client project with Maven"
+      script: mvn test -f client/pom.xml
+    - stage: test
+      name: "Compile client project with Maven"
+      script: mvn test -f client/pom.xml

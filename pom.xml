@@ -5,8 +5,8 @@
   <groupId>com.edn.poc.rabbitmq</groupId>
   <artifactId>aggregation</artifactId>
   <version>1.0</version>
-  <name>RabbitMQ POC</name>
-  <description>Demo project for Spring Boot</description>
+  <name>Client and Server aggregation from RabbitMQ POC</name>
+  <description>Build both client and server projects from RabbitMQ POC</description>
 
   <packaging>pom</packaging>
 
