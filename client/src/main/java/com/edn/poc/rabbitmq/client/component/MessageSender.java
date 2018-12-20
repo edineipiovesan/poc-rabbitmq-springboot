@@ -1,15 +1,14 @@
 package com.edn.poc.rabbitmq.client.component;
 
 import com.edn.poc.rabbitmq.client.configuration.ApplicationConfig;
-import com.edn.poc.rabbitmq.client.model.MessageModel;
+import com.edn.poc.rabbitmq.client.exception.ZipCodeGeneratorException;
+import com.edn.poc.rabbitmq.client.model.Address;
+import com.edn.poc.rabbitmq.client.service.ZipCodeGeneratorService;
 import org.springframework.amqp.rabbit.core.RabbitTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
-
-import java.util.Random;
-import java.util.UUID;
 
 @Component
 public class MessageSender {
@@ -20,20 +19,20 @@ public class MessageSender {
     @Autowired
     private ApplicationConfig applicationConfig;
 
-    @Scheduled(fixedRate = 10)
-    public void sendObject() {
+    @Autowired
+    private ZipCodeGeneratorService zipCodeGeneratorService;
+
+    @Scheduled(fixedRate = 10000)
+    public void sendObject() throws ZipCodeGeneratorException {
         String exchange = applicationConfig.getExchange();
         String routingKey = applicationConfig.getRoutingKey();
 
-        String id = UUID.randomUUID().toString().toLowerCase();
-        String name = UUID.randomUUID().toString().toLowerCase();
-        Long number = (long) (100000 + new Random().nextInt(900000));
-        MessageModel sendObject = new MessageModel(id, name, number);
+        String zipcode = zipCodeGeneratorService.getZipcode();
+        Address address = rabbitTemplate.convertSendAndReceiveAsType(exchange, routingKey, zipcode, new ParameterizedTypeReference<Address>() {
+        });
 
-        MessageModel model = rabbitTemplate.convertSendAndReceiveAsType(exchange, routingKey, sendObject, new ParameterizedTypeReference<MessageModel>() {});
-
-        System.out.println(String.format("[x] Sent: %s", name));
-        System.out.println(String.format("[.] Received: %s", model.getName()));
+        System.out.println("[x] Sent " + zipcode);
+        System.out.println("[.] Received " + address);
     }
 
 }

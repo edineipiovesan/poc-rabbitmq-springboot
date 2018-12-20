@@ -1,36 +1,39 @@
 package com.edn.poc.rabbitmq.server.listener;
 
-import com.edn.poc.rabbitmq.server.model.MessageModel;
-import com.edn.poc.rabbitmq.server.model.ReplyMessageModel;
-import lombok.extern.log4j.Log4j2;
+import com.edn.poc.rabbitmq.server.exception.ZipCodeException;
+import com.edn.poc.rabbitmq.server.exception.ZipcodeNotFoundException;
+import com.edn.poc.rabbitmq.server.finder.ZipcodeFinder;
+import com.edn.poc.rabbitmq.server.model.BasicAddress;
+import com.edn.poc.rabbitmq.server.service.CEPAbertoZipcodeFinder;
+import com.edn.poc.rabbitmq.server.service.PostmonZipcodeFinder;
+import com.edn.poc.rabbitmq.server.service.ViaCEPZipcodeFinder;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.Random;
-
 @Component
-@Log4j2
 public class ServerListener {
 
-//    @RabbitListener(queues = "${mq.queue.request}")
-//    public void toUpperCase(String message) throws InterruptedException {
-//        log.info(" [x] Received String request: " + message);
-//
-//        // Random delay between 0 and 200ms
-//        int sleep = new Random().nextInt(200);
-//        log.info("Sleeping for {}ms", sleep);
-//        Thread.sleep(sleep);
-//    }
+    @Autowired
+    private ViaCEPZipcodeFinder viaCEPZipcodeFinder;
+
+    @Autowired
+    private PostmonZipcodeFinder postmonZipcodeFinder;
+
+    @Autowired
+    private CEPAbertoZipcodeFinder cepAbertoZipcodeFinder;
 
     @RabbitListener(queues = "${mq.queue.request}")
-    public ReplyMessageModel toUpperCase(MessageModel message) throws InterruptedException {
-        System.out.println(" [x] Received object request: " + message);
+    public BasicAddress decodeZipCode(String zipcode) throws ZipcodeNotFoundException {
+        System.out.println(" [x] Received zipcode " + zipcode);
+        return findUsingProvider(viaCEPZipcodeFinder, zipcode);
+    }
 
-        // Random delay between 0 and 200ms
-        int sleep = new Random().nextInt(200);
-        System.out.println("Sleeping for " + sleep + "ms");
-        Thread.sleep(sleep);
-
-        return new ReplyMessageModel(message.getId(), message.getName().toUpperCase(), message.getNumber());
+    public BasicAddress findUsingProvider(ZipcodeFinder zipcodeFinder, String zipcode) throws ZipcodeNotFoundException {
+        try {
+            return zipcodeFinder.find(zipcode);
+        } catch (ZipCodeException e) {
+            throw new ZipcodeNotFoundException("Zipcode not found!");
+        }
     }
 }
