@@ -4,7 +4,7 @@ import com.edn.poc.rabbitmq.server.model.BaseAddress;
 
 import java.util.Objects;
 
-public class AddressResponse {
+public class AddressResponse implements IAddress {
     private String cep;
     private String logradouro;
     private String bairro;
@@ -30,6 +30,7 @@ public class AddressResponse {
     public AddressResponse() {
     }
 
+    @Override
     public String getCep() {
         return cep;
     }
@@ -38,6 +39,7 @@ public class AddressResponse {
         this.cep = cep;
     }
 
+    @Override
     public String getLogradouro() {
         return logradouro;
     }
@@ -46,6 +48,7 @@ public class AddressResponse {
         this.logradouro = logradouro;
     }
 
+    @Override
     public String getBairro() {
         return bairro;
     }
@@ -54,6 +57,7 @@ public class AddressResponse {
         this.bairro = bairro;
     }
 
+    @Override
     public String getCidade() {
         return cidade;
     }
@@ -62,6 +66,7 @@ public class AddressResponse {
         this.cidade = cidade;
     }
 
+    @Override
     public String getEstado() {
         return estado;
     }

@@ -1,13 +1,13 @@
 package com.edn.poc.rabbitmq.server.listener;
 
-import com.edn.poc.rabbitmq.server.dto.response.AddressResponse;
+import com.edn.poc.rabbitmq.server.dto.response.IAddress;
 import com.edn.poc.rabbitmq.server.exception.ZipcodeFinderException;
 import com.edn.poc.rabbitmq.server.exception.ZipcodeNotFoundException;
 import com.edn.poc.rabbitmq.server.finder.ZipcodeFinder;
 import com.edn.poc.rabbitmq.server.finder.impl.CEPAbertoZipcodeFinder;
 import com.edn.poc.rabbitmq.server.finder.impl.PostmonZipcodeFinder;
 import com.edn.poc.rabbitmq.server.finder.impl.ViaCEPZipcodeFinder;
-import com.edn.poc.rabbitmq.server.model.BaseAddress;
+import org.springframework.amqp.AmqpRejectAndDontRequeueException;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -29,13 +29,18 @@ public class ServerListener {
     private CEPAbertoZipcodeFinder cepAbertoZipcodeFinder;
 
     @RabbitListener(queues = "${mq.queue.request}")
-    public AddressResponse decodeZipCode(String zipcode) throws ZipcodeNotFoundException {
+    public IAddress decodeZipCode(String zipcode) {
         System.out.println(" [x] Received zipcode " + zipcode);
-        return new AddressResponse(findUsingAnyProvider(zipcode));
+
+        try {
+            return findUsingAnyProvider(zipcode);
+        } catch (ZipcodeNotFoundException e) {
+            throw new AmqpRejectAndDontRequeueException("Sending to dead-letter queue");
+        }
     }
 
-    private BaseAddress findUsingAnyProvider(String zipcode) throws ZipcodeNotFoundException {
-        BaseAddress address = null;
+    private IAddress findUsingAnyProvider(String zipcode) throws ZipcodeNotFoundException {
+        IAddress address = null;
 
         Set<ZipcodeFinder> providers = new HashSet<>();
         providers.add(cepAbertoZipcodeFinder);

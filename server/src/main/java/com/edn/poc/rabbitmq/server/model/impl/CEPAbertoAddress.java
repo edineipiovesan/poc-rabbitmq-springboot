@@ -1,8 +1,8 @@
 package com.edn.poc.rabbitmq.server.model.impl;
 
+import com.edn.poc.rabbitmq.server.model.BaseAddress;
 import com.edn.poc.rabbitmq.server.model.BaseCity;
 import com.edn.poc.rabbitmq.server.model.BaseState;
-import com.edn.poc.rabbitmq.server.model.BaseAddress;
 
 public class CEPAbertoAddress implements BaseAddress {
 

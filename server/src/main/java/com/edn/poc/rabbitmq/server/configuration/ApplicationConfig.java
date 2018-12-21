@@ -11,10 +11,13 @@ public class ApplicationConfig {
     private String exchange;
 
     @Value("${mq.queue.request}")
-    private String queueRequest;
+    private String incomingQueue;
 
     @Value("${mq.routing.key}")
     private String routingKey;
+
+    @Value("${mq.queue.dead-letter}")
+    private String deadLetterQueue;
 
     public String getExchange() {
         return exchange;
@@ -24,12 +27,12 @@ public class ApplicationConfig {
         this.exchange = exchange;
     }
 
-    public String getQueueRequest() {
-        return queueRequest;
+    public String getIncomingQueue() {
+        return incomingQueue;
     }
 
-    public void setQueueRequest(String queueRequest) {
-        this.queueRequest = queueRequest;
+    public void setIncomingQueue(String incomingQueue) {
+        this.incomingQueue = incomingQueue;
     }
 
     public String getRoutingKey() {
@@ -38,5 +41,13 @@ public class ApplicationConfig {
 
     public void setRoutingKey(String routingKey) {
         this.routingKey = routingKey;
+    }
+
+    public String getDeadLetterQueue() {
+        return deadLetterQueue;
+    }
+
+    public void setDeadLetterQueue(String deadLetterQueue) {
+        this.deadLetterQueue = deadLetterQueue;
     }
 }

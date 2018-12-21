@@ -28,7 +28,8 @@ public class MessageSender {
         String routingKey = applicationConfig.getRoutingKey();
 
         String zipcode = zipCodeGeneratorService.getZipcode();
-        Address address = rabbitTemplate.convertSendAndReceiveAsType(exchange, routingKey, zipcode, new ParameterizedTypeReference<Address>() {});
+        Address address = rabbitTemplate.convertSendAndReceiveAsType(exchange, routingKey, zipcode, new ParameterizedTypeReference<Address>() {
+        });
 
         System.out.println("[x] Sent " + zipcode);
         System.out.println("[.] Received " + address);
