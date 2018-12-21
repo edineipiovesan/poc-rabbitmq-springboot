@@ -72,6 +72,9 @@
                 <targetPath>${project.build.outputDirectory}</targetPath>
                 <includes>
                     <include>application.properties</include>
+                    <include>cepaberto.properties</include>
+                    <include>postmon.properties</include>
+                    <include>viacep.properties</include>
                 </includes>
             </resource>
         </resources>

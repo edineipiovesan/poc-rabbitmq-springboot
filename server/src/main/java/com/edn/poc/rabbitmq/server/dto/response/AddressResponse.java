@@ -1,13 +1,15 @@
-package com.edn.poc.rabbitmq.client.model;
+package com.edn.poc.rabbitmq.server.dto.response;
 
-public class Address {
+import com.edn.poc.rabbitmq.server.model.BaseAddress;
+
+public class AddressResponse {
     private String cep;
     private String logradouro;
     private String bairro;
     private String cidade;
     private String estado;
 
-    public Address(String cep, String logradouro, String bairro, String cidade, String estado) {
+    public AddressResponse(String cep, String logradouro, String bairro, String cidade, String estado) {
         this.cep = cep;
         this.logradouro = logradouro;
         this.bairro = bairro;
@@ -15,7 +17,15 @@ public class Address {
         this.estado = estado;
     }
 
-    public Address() {
+    public AddressResponse(BaseAddress address) {
+        this.cep = address.getCep();
+        this.logradouro = address.getLogradouro();
+        this.bairro = address.getBairro();
+        this.cidade = address.getCidade().getNome();
+        this.estado = address.getEstado().getNome();
+    }
+
+    public AddressResponse() {
     }
 
     public String getCep() {
@@ -56,16 +66,5 @@ public class Address {
 
     public void setEstado(String estado) {
         this.estado = estado;
-    }
-
-    @Override
-    public String toString() {
-        return "Address{" +
-                "cep='" + cep + '\'' +
-                ", logradouro='" + logradouro + '\'' +
-                ", bairro='" + bairro + '\'' +
-                ", cidade='" + cidade + '\'' +
-                ", estado='" + estado + '\'' +
-                '}';
     }
 }

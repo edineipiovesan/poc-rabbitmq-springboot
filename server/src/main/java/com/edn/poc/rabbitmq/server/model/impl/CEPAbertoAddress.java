@@ -2,9 +2,9 @@ package com.edn.poc.rabbitmq.server.model.impl;
 
 import com.edn.poc.rabbitmq.server.model.BaseCity;
 import com.edn.poc.rabbitmq.server.model.BaseState;
-import com.edn.poc.rabbitmq.server.model.BasicAddress;
+import com.edn.poc.rabbitmq.server.model.BaseAddress;
 
-public class CEPAbertoAddress implements BasicAddress {
+public class CEPAbertoAddress implements BaseAddress {
 
     private Double altitude;
     private String cep;
@@ -23,6 +23,7 @@ public class CEPAbertoAddress implements BasicAddress {
         this.altitude = altitude;
     }
 
+    @Override
     public String getCep() {
         return cep;
     }
@@ -47,6 +48,7 @@ public class CEPAbertoAddress implements BasicAddress {
         this.longitude = longitude;
     }
 
+    @Override
     public String getLogradouro() {
         return logradouro;
     }
@@ -55,6 +57,7 @@ public class CEPAbertoAddress implements BasicAddress {
         this.logradouro = logradouro;
     }
 
+    @Override
     public String getBairro() {
         return bairro;
     }
@@ -63,6 +66,7 @@ public class CEPAbertoAddress implements BasicAddress {
         this.bairro = bairro;
     }
 
+    @Override
     public CidadeBean getCidade() {
         return cidade;
     }
@@ -71,6 +75,7 @@ public class CEPAbertoAddress implements BasicAddress {
         this.cidade = cidade;
     }
 
+    @Override
     public EstadoBean getEstado() {
         return estado;
     }
@@ -79,7 +84,21 @@ public class CEPAbertoAddress implements BasicAddress {
         this.estado = estado;
     }
 
-    public static class CidadeBean implements BaseCity {
+    @Override
+    public String toString() {
+        return "CEPAbertoAddress{" +
+                "altitude=" + altitude +
+                ", cep='" + cep + '\'' +
+                ", latitude='" + latitude + '\'' +
+                ", longitude='" + longitude + '\'' +
+                ", logradouro='" + logradouro + '\'' +
+                ", bairro='" + bairro + '\'' +
+                ", cidade=" + cidade +
+                ", estado=" + estado +
+                '}';
+    }
+
+    public class CidadeBean implements BaseCity {
 
         private int ddd;
         private String ibge;
@@ -101,6 +120,7 @@ public class CEPAbertoAddress implements BasicAddress {
             this.ibge = ibge;
         }
 
+        @Override
         public String getNome() {
             return nome;
         }
@@ -118,13 +138,9 @@ public class CEPAbertoAddress implements BasicAddress {
                     '}';
         }
 
-        @Override
-        public String getCidade() {
-            return nome;
-        }
     }
 
-    public static class EstadoBean implements BaseState {
+    public class EstadoBean implements BaseState {
 
         private String sigla;
 
@@ -145,23 +161,9 @@ public class CEPAbertoAddress implements BasicAddress {
         }
 
         @Override
-        public String getEstado() {
+        public String getNome() {
             // TODO: nome do estado
             return sigla;
         }
-    }
-
-    @Override
-    public String toString() {
-        return "CEPAbertoAddress{" +
-                "altitude=" + altitude +
-                ", cep='" + cep + '\'' +
-                ", latitude='" + latitude + '\'' +
-                ", longitude='" + longitude + '\'' +
-                ", logradouro='" + logradouro + '\'' +
-                ", bairro='" + bairro + '\'' +
-                ", cidade=" + cidade +
-                ", estado=" + estado +
-                '}';
     }
 }

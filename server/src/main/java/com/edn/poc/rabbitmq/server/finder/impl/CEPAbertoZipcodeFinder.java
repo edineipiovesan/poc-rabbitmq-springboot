@@ -1,7 +1,7 @@
-package com.edn.poc.rabbitmq.server.service;
+package com.edn.poc.rabbitmq.server.finder.impl;
 
-import com.edn.poc.rabbitmq.server.configuration.ZipCodeAPIConfig;
-import com.edn.poc.rabbitmq.server.exception.ZipCodeException;
+import com.edn.poc.rabbitmq.server.configuration.api.impl.CEPAbertoApiInfo;
+import com.edn.poc.rabbitmq.server.exception.ZipcodeFinderException;
 import com.edn.poc.rabbitmq.server.finder.ZipcodeFinder;
 import com.edn.poc.rabbitmq.server.model.impl.CEPAbertoAddress;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -18,27 +18,20 @@ import java.io.IOException;
 public class CEPAbertoZipcodeFinder implements ZipcodeFinder {
 
     @Autowired
-    private ZipCodeAPIConfig zipCodeAPIConfig;
+    private CEPAbertoApiInfo cepAbertoApiInfo;
 
     @Autowired
     private ObjectMapper jacksonObjectMapper;
 
-    public CEPAbertoAddress find(String zipcode) throws ZipCodeException {
-        String url = zipCodeAPIConfig.getUrl();
-        String endpoint = zipCodeAPIConfig.getEndpoint();
-        String format = zipCodeAPIConfig.getFormat();
-        String token = zipCodeAPIConfig.getToken();
+    public CEPAbertoAddress find(String zipcode) throws ZipcodeFinderException {
+        System.out.println("Iniciado a chamada na API " + getClass().getSimpleName());
 
-        System.out.println(zipcode);
-        System.out.println(url);
-        System.out.println(format);
-        System.out.println(token);
+        String url = cepAbertoApiInfo.getUrl();
+        String endpoint = cepAbertoApiInfo.getEndpoint();
+        String token = cepAbertoApiInfo.getToken();
 
-        String urlEndpoint = String.format("%s%s", url, endpoint);
-        System.out.println(urlEndpoint);
-
-        String tokenHeader = String.format("Token %s", token);
-        System.out.println(tokenHeader);
+        String urlEndpoint = url + endpoint;
+        String tokenHeader = "Token " + token;
 
         try {
             HttpResponse<String> json = Unirest.get(urlEndpoint)
@@ -48,15 +41,10 @@ public class CEPAbertoZipcodeFinder implements ZipcodeFinder {
                     .header("Accept", ContentType.APPLICATION_JSON.getMimeType())
                     .asString();
 
-            System.out.println(json.getStatus());
-            System.out.println(json.getStatusText());
-            System.out.println(json.getHeaders());
-            System.out.println(json.getBody());
-
+            System.out.println("Response: " + json.getBody());
             return jacksonObjectMapper.readValue(json.getBody(), CEPAbertoAddress.class);
         } catch (UnirestException | IOException e) {
-            e.printStackTrace();
-            throw new ZipCodeException("API communication error.");
+            throw new ZipcodeFinderException("API communication error.");
         }
     }
 }

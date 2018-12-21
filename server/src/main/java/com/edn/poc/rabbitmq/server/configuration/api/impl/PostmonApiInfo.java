@@ -1,24 +1,25 @@
-package com.edn.poc.rabbitmq.server.configuration;
+package com.edn.poc.rabbitmq.server.configuration.api.impl;
 
 
+import com.edn.poc.rabbitmq.server.configuration.api.ApiInfo;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
 @Configuration
-@PropertySource("classpath:application.properties")
-public class ZipCodeAPIConfig {
+@PropertySource("classpath:postmon.properties")
+public class PostmonApiInfo implements ApiInfo {
 
-    @Value("${zipcode.api.url}")
+    @Value("${postmon.api.url}")
     private String url;
 
-    @Value("${zipcode.api.format}")
+    @Value("${postmon.api.format}")
     private String format;
 
-    @Value("${zipcode.api.token}")
+    @Value("${postmon.api.token}")
     private String token;
 
-    @Value("${zipcode.api.endpoint}")
+    @Value("${postmon.api.endpoint}")
     private String endpoint;
 
     public String getUrl() {

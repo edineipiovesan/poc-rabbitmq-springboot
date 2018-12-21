@@ -1,9 +1,9 @@
 package com.edn.poc.rabbitmq.server.finder;
 
-import com.edn.poc.rabbitmq.server.exception.ZipCodeException;
-import com.edn.poc.rabbitmq.server.model.BasicAddress;
+import com.edn.poc.rabbitmq.server.exception.ZipcodeFinderException;
+import com.edn.poc.rabbitmq.server.model.BaseAddress;
 
 public interface ZipcodeFinder {
 
-    BasicAddress find(String zipcode) throws ZipCodeException;
+    BaseAddress find(String zipcode) throws ZipcodeFinderException;
 }
