@@ -32,9 +32,10 @@ public class PostmonZipcodeFinder implements ZipcodeFinder {
         String url = postmonApiInfo.getUrl();
         String endpoint = postmonApiInfo.getEndpoint();
 
-        String fullUrl = String.format("%s/%s/%s/", url, endpoint, zipcode);
+        String fullUrl = String.format("%s/%s/%s", url, endpoint, zipcode);
 
         try {
+            System.out.println("Request sent to: " + fullUrl);
             HttpResponse<String> json = Unirest.get(fullUrl)
                     .header("Content-Type", ContentType.APPLICATION_JSON.getMimeType())
                     .header("Accept", ContentType.APPLICATION_JSON.getMimeType())

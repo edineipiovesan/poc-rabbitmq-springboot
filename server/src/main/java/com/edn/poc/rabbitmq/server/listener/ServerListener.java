@@ -39,8 +39,8 @@ public class ServerListener {
 
         Set<ZipcodeFinder> providers = new HashSet<>();
         providers.add(cepAbertoZipcodeFinder);
-        providers.add(postmonZipcodeFinder);
         providers.add(viaCEPZipcodeFinder);
+        providers.add(postmonZipcodeFinder);
 
         for (ZipcodeFinder finder : providers) {
             try {

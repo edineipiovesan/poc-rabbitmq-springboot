@@ -2,6 +2,8 @@ package com.edn.poc.rabbitmq.server.dto.response;
 
 import com.edn.poc.rabbitmq.server.model.BaseAddress;
 
+import java.util.Objects;
+
 public class AddressResponse {
     private String cep;
     private String logradouro;
@@ -18,11 +20,11 @@ public class AddressResponse {
     }
 
     public AddressResponse(BaseAddress address) {
-        this.cep = address.getCep();
-        this.logradouro = address.getLogradouro();
-        this.bairro = address.getBairro();
-        this.cidade = address.getCidade().getNome();
-        this.estado = address.getEstado().getNome();
+        this.cep = Objects.requireNonNull(address.getCep(), "CEP cannot be null.");
+        this.logradouro = Objects.requireNonNull(address.getLogradouro(), "Logradouro cannot be null.");
+        this.bairro = Objects.requireNonNull(address.getBairro(), "Bairro cannot be null.");
+        this.cidade = Objects.requireNonNull(address.getCidade().getNome(), "Cidade cannot be null.");
+        this.estado = Objects.requireNonNull(address.getEstado().getNome(), "Estado cannot be null.");
     }
 
     public AddressResponse() {

@@ -3,7 +3,6 @@ package com.edn.poc.rabbitmq.server.finder.impl;
 import com.edn.poc.rabbitmq.server.configuration.api.impl.ViaCEPApiInfo;
 import com.edn.poc.rabbitmq.server.exception.ZipcodeFinderException;
 import com.edn.poc.rabbitmq.server.finder.ZipcodeFinder;
-import com.edn.poc.rabbitmq.server.model.impl.CEPAbertoAddress;
 import com.edn.poc.rabbitmq.server.model.impl.ViaCEPAddress;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.HttpResponse;
@@ -35,6 +34,7 @@ public class ViaCEPZipcodeFinder implements ZipcodeFinder {
         String fullUrl = String.format("%s/%s/%s/%s", url, endpoint, zipcode, format);
 
         try {
+            System.out.println("Request sent to: " + fullUrl);
             HttpResponse<String> json = Unirest.get(fullUrl)
                     .header("Content-Type", ContentType.APPLICATION_JSON.getMimeType())
                     .header("Accept", ContentType.APPLICATION_JSON.getMimeType())
