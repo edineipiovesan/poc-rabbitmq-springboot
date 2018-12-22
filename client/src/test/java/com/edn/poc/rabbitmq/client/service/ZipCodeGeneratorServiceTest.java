@@ -20,7 +20,7 @@ public class ZipCodeGeneratorServiceTest {
     @Test
     public void getZipcodeTest() throws ZipCodeGeneratorException {
         String zipcode = zipCodeGeneratorService.getZipcode();
-        log.info("Zipcode generated is {}", zipcode); //62604976 24140400
+        log.info("Zipcode generated is {}", zipcode);
         assertThat(zipcode).isNotNull();
     }
 }
