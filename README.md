@@ -4,6 +4,7 @@
 [![codebeat badge](https://codebeat.co/badges/2c8cf614-4c1a-4e37-a3a4-814d39039947)](https://codebeat.co/projects/github-com-edineipiovesan-poc-rabbitmq-springboot-master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/296285778d074e1698087d27708a8f59)](https://app.codacy.com/app/edineipiovesan/poc-rabbitmq-springboot?utm_source=github.com&utm_medium=referral&utm_content=edineipiovesan/poc-rabbitmq-springboot&utm_campaign=Badge_Grade_Dashboard)
 [![Maintainability](https://api.codeclimate.com/v1/badges/f76fa85f8b66c74346d2/maintainability)](https://codeclimate.com/github/edineipiovesan/poc-rabbitmq-springboot/maintainability)
+[![Maintainability](https://sonarcloud.io/api/project_badges/measure?project=edineipiovesan_poc-rabbitmq-springboot&metric=alert_status)](https://sonarcloud.io/dashboard?id=edineipiovesan_poc-rabbitmq-springboot)
 
 Proof of concept using RabbitMQ with Spring Boot application.
 
