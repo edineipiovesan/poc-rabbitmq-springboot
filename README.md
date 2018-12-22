@@ -1,3 +1,4 @@
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/296285778d074e1698087d27708a8f59)](https://app.codacy.com/app/edineipiovesan/poc-rabbitmq-springboot?utm_source=github.com&utm_medium=referral&utm_content=edineipiovesan/poc-rabbitmq-springboot&utm_campaign=Badge_Grade_Dashboard)
 [![Build Status](https://travis-ci.org/edineipiovesan/poc-rabbitmq-springboot.svg?branch=master)](https://travis-ci.org/edineipiovesan/poc-rabbitmq-springboot)
 
 # RabbitMQ
