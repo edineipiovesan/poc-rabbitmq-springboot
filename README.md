@@ -1,4 +1,3 @@
-
 # RabbitMQ
 
 [![Build Status](https://travis-ci.org/edineipiovesan/poc-rabbitmq-springboot.svg?branch=master)](https://travis-ci.org/edineipiovesan/poc-rabbitmq-springboot)
@@ -9,13 +8,13 @@ Proof of concept using RabbitMQ with Spring Boot application.
 
 Some of technologies used in this project
 
-* Java
-* Spring Boot
-* Spring AMQP
-* RabbitMQ
-* Docker
-* docker-compose
-* Maven
+*  Java
+*  Spring Boot
+*  Spring AMQP
+*  RabbitMQ
+*  Docker
+*  docker-compose
+*  Maven
 
 ## Build and run
 
