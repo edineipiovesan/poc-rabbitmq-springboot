@@ -2,18 +2,11 @@ package com.edn.poc.rabbitmq.server.configuration;
 
 import org.springframework.amqp.core.*;
 import org.springframework.amqp.rabbit.annotation.EnableRabbit;
-import org.springframework.amqp.rabbit.annotation.RabbitListenerConfigurer;
-import org.springframework.amqp.rabbit.connection.ConnectionFactory;
-import org.springframework.amqp.rabbit.core.RabbitTemplate;
-import org.springframework.amqp.rabbit.listener.RabbitListenerEndpointRegistrar;
-import org.springframework.amqp.rabbit.listener.SimpleMessageListenerContainer;
-import org.springframework.amqp.rabbit.listener.adapter.MessageListenerAdapter;
 import org.springframework.amqp.support.converter.Jackson2JsonMessageConverter;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
-import org.springframework.messaging.handler.annotation.support.DefaultMessageHandlerMethodFactory;
 
 /**
  * Server application create exchange, queue and bind them.
@@ -32,8 +25,16 @@ public class RabbitMQConfig {
     }
 
     @Bean
+    Queue deadLetterQueue() {
+        return QueueBuilder.durable(applicationConfig.getDeadLetterQueue()).build();
+    }
+
+    @Bean
     public Queue queue() {
-        return new Queue(applicationConfig.getQueueRequest());
+        return QueueBuilder.durable(applicationConfig.getIncomingQueue())
+                .withArgument("x-dead-letter-exchange", "")
+                .withArgument("x-dead-letter-routing-key", applicationConfig.getDeadLetterQueue())
+                .build();
     }
 
     @Bean

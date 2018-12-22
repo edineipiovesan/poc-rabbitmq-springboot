@@ -5,7 +5,5 @@ services:
     volumes: 
       - .:/usr/src/mymaven 
       - $HOME/.m2:/root/.m2
-      - ./server/target:/usr/src/mymaven/server/target
-      - ./client/target:/usr/src/mymaven/client/target
     working_dir: /usr/src/mymaven
     command: mvn package -DskipTests
