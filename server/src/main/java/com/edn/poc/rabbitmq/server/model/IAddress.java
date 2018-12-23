@@ -1,6 +1,7 @@
-package com.edn.poc.rabbitmq.server.dto.response;
+package com.edn.poc.rabbitmq.server.model;
 
 public interface IAddress {
+
     String getCep();
 
     String getLogradouro();

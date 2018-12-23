@@ -8,16 +8,16 @@ import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 
-/**
- * Server application create exchange, queue and bind them.
- * Client application should only connect to exchange.
- */
 @Configuration
 @EnableRabbit
 public class RabbitMQConfig {
 
+    private final ApplicationConfig applicationConfig;
+
     @Autowired
-    private ApplicationConfig applicationConfig;
+    public RabbitMQConfig(ApplicationConfig applicationConfig) {
+        this.applicationConfig = applicationConfig;
+    }
 
     @Bean
     public DirectExchange exchange() {

@@ -1,6 +1,7 @@
 package com.edn.poc.rabbitmq.server.exception;
 
 public class ZipcodeNotFoundException extends Exception {
+
     public ZipcodeNotFoundException() {
         super();
     }
