@@ -1,14 +1,12 @@
 package com.edn.poc.rabbitmq.server.finder;
 
 import com.edn.poc.rabbitmq.server.exception.ApiRequestException;
-import com.edn.poc.rabbitmq.server.exception.ZipcodeInvalidException;
 import com.edn.poc.rabbitmq.server.exception.ZipcodeNotFoundException;
 import com.edn.poc.rabbitmq.server.model.IAddress;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.HttpResponse;
 import org.springframework.core.GenericTypeResolver;
 import org.springframework.http.HttpStatus;
-import org.springframework.util.StringUtils;
 
 import java.io.IOException;
 

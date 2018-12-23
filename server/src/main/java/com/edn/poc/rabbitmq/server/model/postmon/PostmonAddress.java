@@ -1,7 +1,6 @@
 package com.edn.poc.rabbitmq.server.model.postmon;
 
 import com.edn.poc.rabbitmq.server.model.IAddress;
-import com.fasterxml.jackson.annotation.JsonGetter;
 import com.fasterxml.jackson.annotation.JsonProperty;
 
 import javax.annotation.Generated;
