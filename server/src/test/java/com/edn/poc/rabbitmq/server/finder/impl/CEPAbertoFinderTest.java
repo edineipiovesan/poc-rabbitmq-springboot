@@ -1,8 +1,9 @@
 package com.edn.poc.rabbitmq.server.finder.impl;
 
-import com.edn.poc.rabbitmq.server.configuration.api.impl.CEPAbertoApiInfo;
+import com.edn.poc.rabbitmq.server.configuration.api.ApiInfo;
+import com.edn.poc.rabbitmq.server.exception.ApiRequestException;
 import com.edn.poc.rabbitmq.server.exception.ZipcodeInvalidException;
-import com.edn.poc.rabbitmq.server.exception.ZipcodeNotFoundException;
+import com.edn.poc.rabbitmq.server.finder.ZipcodeFinder;
 import com.edn.poc.rabbitmq.server.model.IAddress;
 import org.junit.Before;
 import org.junit.Test;
@@ -17,9 +18,9 @@ import static org.mockito.Mockito.when;
 @RunWith(MockitoJUnitRunner.class)
 public class CEPAbertoFinderTest {
     @Mock
-    private CEPAbertoApiInfo apiInfo;
+    private ApiInfo apiInfo;
 
-    private CEPAbertoFinder finder;
+    private ZipcodeFinder finder;
 
     @Before
     public void init() {
@@ -31,7 +32,7 @@ public class CEPAbertoFinderTest {
     }
 
     @Test
-    public void findTest() throws ZipcodeNotFoundException, ZipcodeInvalidException {
+    public void findTest() throws ZipcodeInvalidException, ApiRequestException {
         String zipcode = "74393250";
         IAddress address = finder.find(zipcode);
 
@@ -43,49 +44,23 @@ public class CEPAbertoFinderTest {
         assertThat(address.getEstado()).isEqualTo("GO");
     }
 
-    @Test
-    public void validZipcodeOnlyNumber() throws ZipcodeInvalidException, ZipcodeNotFoundException {
-        String zipcodeOnlyNumber = "74393250";
-
-        IAddress address = finder.find(zipcodeOnlyNumber);
-        assertThat(address).isNotNull();
-        assertThat(address.getCep()).isEqualTo(zipcodeOnlyNumber);
-        assertThat(address.getLogradouro()).isEqualTo("Rua FP 27");
-        assertThat(address.getBairro()).isEqualTo("Recreio do Funcionário Público");
-        assertThat(address.getCidade()).isEqualTo("Goiânia");
-        assertThat(address.getEstado()).isEqualTo("GO");
-    }
-
-    @Test
-    public void validZipcodeWithHyphen() throws ZipcodeInvalidException, ZipcodeNotFoundException {
-        String zipcodeWithHyphen = "74393-250";
-
-        IAddress address = finder.find(zipcodeWithHyphen);
-        assertThat(address).isNotNull();
-        assertThat(address.getCep()).isEqualTo("74393250");
-        assertThat(address.getLogradouro()).isEqualTo("Rua FP 27");
-        assertThat(address.getBairro()).isEqualTo("Recreio do Funcionário Público");
-        assertThat(address.getCidade()).isEqualTo("Goiânia");
-        assertThat(address.getEstado()).isEqualTo("GO");
-    }
-
     @Test(expected = ZipcodeInvalidException.class)
-    public void zipcodeNullTest() throws ZipcodeNotFoundException, ZipcodeInvalidException {
+    public void zipcodeNullTest() throws ZipcodeInvalidException, ApiRequestException {
         finder.find(null);
     }
 
     @Test(expected = ZipcodeInvalidException.class)
-    public void zipcodeEmptyStringTest() throws ZipcodeNotFoundException, ZipcodeInvalidException {
+    public void zipcodeEmptyStringTest() throws ZipcodeInvalidException, ApiRequestException {
         finder.find("");
     }
 
     @Test(expected = ZipcodeInvalidException.class)
-    public void invalidZipcodeWithLetters() throws ZipcodeInvalidException, ZipcodeNotFoundException {
+    public void invalidZipcodeWithLetters() throws ZipcodeInvalidException, ApiRequestException {
         finder.find("AAA393250");
     }
 
     @Test(expected = ZipcodeInvalidException.class)
-    public void invalidZipcodeWith5Digits() throws ZipcodeInvalidException, ZipcodeNotFoundException {
+    public void invalidZipcodeWith5Digits() throws ZipcodeInvalidException, ApiRequestException {
         finder.find("74393");
     }
 }

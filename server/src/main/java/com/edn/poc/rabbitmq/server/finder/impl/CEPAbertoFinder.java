@@ -12,6 +12,7 @@ import lombok.extern.log4j.Log4j2;
 import org.apache.http.entity.ContentType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Service;
 
 @Service("CEPAbertoFinder")
@@ -37,7 +38,7 @@ public class CEPAbertoFinder extends ZipcodeFinder<CEPAbertoAddress> {
         return objectMapper;
     }
 
-    public HttpResponse<String> request(String zipcode) throws ApiRequestException {
+    public String request(String zipcode) throws ApiRequestException {
         String url = apiInfo.getUrl();
         String endpoint = apiInfo.getEndpoint();
         String token = apiInfo.getToken();
@@ -47,12 +48,17 @@ public class CEPAbertoFinder extends ZipcodeFinder<CEPAbertoAddress> {
 
         try {
             log.info("Sending GET to {}", urlEndpoint);
-            return Unirest.get(urlEndpoint)
+            HttpResponse<String> response = Unirest.get(urlEndpoint)
                     .queryString("cep", zipcode)
                     .header("Authorization", tokenHeader)
                     .header("Content-Type", ContentType.APPLICATION_JSON.getMimeType())
                     .header("Accept", ContentType.APPLICATION_JSON.getMimeType())
                     .asString();
+
+            if (response.getStatus() != HttpStatus.OK.value())
+                throw new ApiRequestException("API request failed.");
+
+            return response.getBody();
         } catch (UnirestException e) {
             throw new ApiRequestException("API communication error", e);
         }
