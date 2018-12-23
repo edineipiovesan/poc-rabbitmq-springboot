@@ -57,6 +57,7 @@ public class ServerListener {
             try {
                 IAddress address = finder.find(zipcode);
                 log.info("Zipcode {} found by {}", zipcode, finder.getApiName());
+                return address;
             } catch (ZipcodeNotFoundException | ZipcodeInvalidException e) {
                 log.warn("Provider {} cannot request zipcode {}", finder.getClass().getSimpleName(), zipcode);
             }

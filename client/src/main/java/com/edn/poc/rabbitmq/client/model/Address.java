@@ -7,13 +7,6 @@ public class Address implements IAddress {
     private String cidade;
     private String estado;
 
-    public Address(String cep, String logradouro, String bairro, String cidade, String estado) {
-        this.cep = cep;
-        this.logradouro = logradouro;
-        this.bairro = bairro;
-        this.cidade = cidade;
-        this.estado = estado;
-    }
 
     public Address() {
     }

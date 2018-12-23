@@ -33,7 +33,7 @@ public class CEPAbertoFinder extends ZipcodeFinder<CEPAbertoAddress> {
     }
 
     @Override
-    public com.fasterxml.jackson.databind.ObjectMapper getObjectMapper() {
+    public ObjectMapper getObjectMapper() {
         return objectMapper;
     }
 

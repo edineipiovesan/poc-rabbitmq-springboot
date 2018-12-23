@@ -1,12 +1,12 @@
-package com.edn.poc.rabbitmq.server.finder.impl.util;
+package com.edn.poc.rabbitmq.server.util;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import static com.fasterxml.jackson.databind.DeserializationFeature.*;
 
-public class UtilComponents {
+public class ComponentUtils {
 
-    private UtilComponents() throws IllegalAccessException {
+    private ComponentUtils() throws IllegalAccessException {
         throw new IllegalAccessException();
     }
 
