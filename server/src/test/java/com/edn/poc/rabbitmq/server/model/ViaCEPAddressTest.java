@@ -6,8 +6,8 @@ import org.junit.Test;
 
 import java.io.IOException;
 
-import static com.edn.poc.rabbitmq.server.finder.impl.util.UtilComponents.*;
-import static org.assertj.core.api.Assertions.*;
+import static com.edn.poc.rabbitmq.server.util.ComponentUtils.getObjectMapper;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class ViaCEPAddressTest {
     private String json;
