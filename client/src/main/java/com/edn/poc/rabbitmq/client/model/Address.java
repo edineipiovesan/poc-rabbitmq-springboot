@@ -7,10 +7,6 @@ public class Address implements IAddress {
     private String cidade;
     private String estado;
 
-
-    public Address() {
-    }
-
     @Override
     public String getCep() {
         return cep;

@@ -12,9 +12,6 @@ public class PostmonAddress implements IAddress {
     @JsonProperty("cidade")
     private String cidade;
 
-    @JsonProperty("estado")
-    private String estadoSigla;
-
     @JsonProperty("bairro")
     private String bairro;
 
@@ -38,15 +35,6 @@ public class PostmonAddress implements IAddress {
     @Override
     public String getEstado() {
         return getPostmonEstado().getNome();
-    }
-
-    @JsonGetter
-    public String getEstadoSigla() {
-        return estadoSigla;
-    }
-
-    public void setEstadoSigla(String estadoSigla) {
-        this.estadoSigla = estadoSigla;
     }
 
     public String getBairro() {
@@ -85,7 +73,6 @@ public class PostmonAddress implements IAddress {
     public String toString() {
         return "PostmonAddress{" +
                 "cidade='" + cidade + '\'' +
-                ", estadoSigla='" + estadoSigla + '\'' +
                 ", bairro='" + bairro + '\'' +
                 ", logradouro='" + logradouro + '\'' +
                 ", postmonEstado=" + postmonEstado +

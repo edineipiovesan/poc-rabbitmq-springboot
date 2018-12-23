@@ -7,7 +7,7 @@ import static com.fasterxml.jackson.databind.DeserializationFeature.FAIL_ON_UNKN
 public class ComponentUtils {
 
     private ComponentUtils() throws IllegalAccessException {
-        throw new IllegalAccessException();
+        throw new IllegalAccessException("Utils classes should not be instantiated.");
     }
 
     public static ObjectMapper getObjectMapper() {

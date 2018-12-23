@@ -10,6 +10,13 @@ public class CEPAbertoCidade {
     @JsonProperty("nome")
     private String nome;
 
+    public CEPAbertoCidade() {
+    }
+
+    public CEPAbertoCidade(String nome) {
+        this.nome = nome;
+    }
+
     public String getNome() {
         return nome;
     }

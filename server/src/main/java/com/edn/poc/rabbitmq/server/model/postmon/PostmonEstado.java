@@ -10,6 +10,13 @@ public class PostmonEstado {
     @JsonProperty("nome")
     private String nome;
 
+    public PostmonEstado() {
+    }
+
+    public PostmonEstado(String nome) {
+        this.nome = nome;
+    }
+
     public String getNome() {
         return nome;
     }

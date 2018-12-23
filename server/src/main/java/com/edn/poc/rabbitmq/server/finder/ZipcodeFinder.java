@@ -20,9 +20,7 @@ public abstract class ZipcodeFinder<T extends IAddress> {
 
     protected abstract HttpResponse<String> request(String zipcode) throws ApiRequestException;
 
-    public IAddress find(String zipcode) throws ZipcodeNotFoundException, ZipcodeInvalidException {
-        zipcode = standardizeZipcode(zipcode);
-
+    public IAddress find(String zipcode) throws ZipcodeNotFoundException {
         try {
             HttpResponse<String> response = request(zipcode);
             if (response.getStatus() != HttpStatus.OK.value())
@@ -37,23 +35,5 @@ public abstract class ZipcodeFinder<T extends IAddress> {
         } catch (ApiRequestException e) {
             throw new ZipcodeNotFoundException(e.getMessage());
         }
-    }
-
-    private String standardizeZipcode(String zipcode) throws ZipcodeInvalidException {
-        if (StringUtils.isEmpty(zipcode))
-            throw new ZipcodeInvalidException(String.format("Zipcode %s is not valid. Please provida a zipcode in " +
-                    "standard 12345-678 or 12345678", zipcode));
-
-        String hyphenPattern = "^\\d{5}[-]\\d{3}$";
-        String onlyNumberPattern = "^\\d{8}$";
-
-        if (zipcode.matches(onlyNumberPattern))
-            return zipcode;
-
-        if (zipcode.matches(hyphenPattern))
-            return StringUtils.delete(zipcode, "-");
-
-        throw new ZipcodeInvalidException(String.format("Zipcode %s is not valid. Please provida a zipcode in " +
-                "standard 12345-678 or 12345678", zipcode));
     }
 }

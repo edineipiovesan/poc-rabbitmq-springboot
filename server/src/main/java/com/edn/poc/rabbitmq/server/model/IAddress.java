@@ -11,4 +11,5 @@ public interface IAddress {
     String getCidade();
 
     String getEstado();
+
 }

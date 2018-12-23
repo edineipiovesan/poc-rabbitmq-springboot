@@ -10,6 +10,13 @@ public class CEPAbertoEstado {
     @JsonProperty("sigla")
     private String sigla;
 
+    public CEPAbertoEstado() {
+    }
+
+    public CEPAbertoEstado(String sigla) {
+        this.sigla = sigla;
+    }
+
     public String getSigla() {
         return sigla;
     }
