@@ -4,13 +4,13 @@ import com.edn.poc.rabbitmq.server.configuration.api.impl.ViaCEPApiInfo;
 import com.edn.poc.rabbitmq.server.exception.ZipcodeInvalidException;
 import com.edn.poc.rabbitmq.server.exception.ZipcodeNotFoundException;
 import com.edn.poc.rabbitmq.server.model.IAddress;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import static com.edn.poc.rabbitmq.server.finder.impl.util.UtilComponents.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -27,7 +27,7 @@ public class ViaCEPFinderTest {
         when(apiInfo.getEndpoint()).thenReturn("ws/");
         when(apiInfo.getFormat()).thenReturn("json");
 
-        finder = new ViaCEPFinder(apiInfo, new ObjectMapper());
+        finder = new ViaCEPFinder(apiInfo, getObjectMapper());
     }
 
     @Test

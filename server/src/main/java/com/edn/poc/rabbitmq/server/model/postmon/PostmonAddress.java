@@ -24,9 +24,6 @@ public class PostmonAddress implements IAddress {
     @JsonProperty("estado_info")
     private PostmonEstado postmonEstado;
 
-    @JsonProperty("cidade_info")
-    private CidadePostmon cidadePostmon;
-
     @JsonProperty("cep")
     private String cep;
 
@@ -76,14 +73,6 @@ public class PostmonAddress implements IAddress {
         this.postmonEstado = postmonEstado;
     }
 
-    public CidadePostmon getCidadePostmon() {
-        return cidadePostmon;
-    }
-
-    public void setCidadePostmon(CidadePostmon cidadePostmon) {
-        this.cidadePostmon = cidadePostmon;
-    }
-
     public String getCep() {
         return cep;
     }
@@ -94,15 +83,13 @@ public class PostmonAddress implements IAddress {
 
     @Override
     public String toString() {
-        return
-                "PostmonAddress{" +
-                        "cidade = '" + cidade + '\'' +
-                        ",estadoSigla = '" + estadoSigla + '\'' +
-                        ",bairro = '" + bairro + '\'' +
-                        ",logradouro = '" + logradouro + '\'' +
-                        ",estado_info = '" + postmonEstado + '\'' +
-                        ",cidade_info = '" + cidadePostmon + '\'' +
-                        ",cep = '" + cep + '\'' +
-                        "}";
+        return "PostmonAddress{" +
+                "cidade='" + cidade + '\'' +
+                ", estadoSigla='" + estadoSigla + '\'' +
+                ", bairro='" + bairro + '\'' +
+                ", logradouro='" + logradouro + '\'' +
+                ", postmonEstado=" + postmonEstado +
+                ", cep='" + cep + '\'' +
+                '}';
     }
 }

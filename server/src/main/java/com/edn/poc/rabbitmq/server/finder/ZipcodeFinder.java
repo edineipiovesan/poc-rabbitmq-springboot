@@ -14,7 +14,7 @@ import java.io.IOException;
 
 public abstract class ZipcodeFinder<T extends IAddress> {
 
-    protected abstract String getApiName();
+    public abstract String getApiName();
 
     protected abstract ObjectMapper getObjectMapper();
 
@@ -42,7 +42,7 @@ public abstract class ZipcodeFinder<T extends IAddress> {
     private String standardizeZipcode(String zipcode) throws ZipcodeInvalidException {
         if (StringUtils.isEmpty(zipcode))
             throw new ZipcodeInvalidException(String.format("Zipcode %s is not valid. Please provida a zipcode in " +
-                    "standard 12345-678 or 12345678.", zipcode));
+                    "standard 12345-678 or 12345678", zipcode));
 
         String hyphenPattern = "^\\d{5}[-]\\d{3}$";
         String onlyNumberPattern = "^\\d{8}$";
@@ -54,6 +54,6 @@ public abstract class ZipcodeFinder<T extends IAddress> {
             return StringUtils.delete(zipcode, "-");
 
         throw new ZipcodeInvalidException(String.format("Zipcode %s is not valid. Please provida a zipcode in " +
-                "standard 12345-678 or 12345678.", zipcode));
+                "standard 12345-678 or 12345678", zipcode));
     }
 }

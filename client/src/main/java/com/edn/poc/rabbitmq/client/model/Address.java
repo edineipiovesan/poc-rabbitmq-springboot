@@ -1,6 +1,6 @@
 package com.edn.poc.rabbitmq.client.model;
 
-public class Address {
+public class Address implements IAddress {
     private String cep;
     private String logradouro;
     private String bairro;
@@ -18,6 +18,7 @@ public class Address {
     public Address() {
     }
 
+    @Override
     public String getCep() {
         return cep;
     }
@@ -26,6 +27,7 @@ public class Address {
         this.cep = cep;
     }
 
+    @Override
     public String getLogradouro() {
         return logradouro;
     }
@@ -34,6 +36,7 @@ public class Address {
         this.logradouro = logradouro;
     }
 
+    @Override
     public String getBairro() {
         return bairro;
     }
@@ -42,6 +45,7 @@ public class Address {
         this.bairro = bairro;
     }
 
+    @Override
     public String getCidade() {
         return cidade;
     }
@@ -50,6 +54,7 @@ public class Address {
         this.cidade = cidade;
     }
 
+    @Override
     public String getEstado() {
         return estado;
     }

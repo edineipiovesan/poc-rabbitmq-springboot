@@ -7,18 +7,18 @@ import com.edn.poc.rabbitmq.server.finder.impl.CEPAbertoFinder;
 import com.edn.poc.rabbitmq.server.finder.impl.PostmonFinder;
 import com.edn.poc.rabbitmq.server.finder.impl.ViaCEPFinder;
 import com.edn.poc.rabbitmq.server.model.IAddress;
+import lombok.extern.log4j.Log4j2;
 import org.springframework.amqp.AmqpRejectAndDontRequeueException;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import java.util.HashSet;
-import java.util.Objects;
 import java.util.Set;
 
 @Component
+@Log4j2
 public class ServerListener {
-
     private final ViaCEPFinder viaCEPFinder;
 
     private final PostmonFinder postmonFinder;
@@ -34,18 +34,20 @@ public class ServerListener {
 
     @RabbitListener(queues = "${mq.queue.request}")
     public IAddress decodeZipCode(String zipcode) {
-        System.out.println(" [x] Received zipcode " + zipcode);
+        log.info("[x] Received zipcode {}", zipcode);
 
         try {
-            return findUsingAnyProvider(zipcode);
+            IAddress address = findUsingAnyProvider(zipcode);
+            log.info("Returning {}", address);
+            return address;
         } catch (ZipcodeNotFoundException e) {
+            log.error("Can not process the request: {}", e.getMessage());
+            log.info("Sending to dead-letter queue");
             throw new AmqpRejectAndDontRequeueException("Sending to dead-letter queue");
         }
     }
 
     private IAddress findUsingAnyProvider(String zipcode) throws ZipcodeNotFoundException {
-        IAddress address = null;
-
         Set<ZipcodeFinder> providers = new HashSet<>();
         providers.add(cepAbertoFinder);
         providers.add(viaCEPFinder);
@@ -53,18 +55,13 @@ public class ServerListener {
 
         for (ZipcodeFinder finder : providers) {
             try {
-                address = finder.find(zipcode);
-                if (Objects.nonNull(address)) {
-                    System.out.println(address);
-                    return address;
-                }
-            } catch (ZipcodeNotFoundException e) {
-                System.out.println(String.format("Provider %s cannot request zipcode %s.", finder.getClass().getSimpleName(), zipcode));
-            } catch (ZipcodeInvalidException e) {
-                e.printStackTrace();
+                IAddress address = finder.find(zipcode);
+                log.info("Zipcode {} found by {}", zipcode, finder.getApiName());
+            } catch (ZipcodeNotFoundException | ZipcodeInvalidException e) {
+                log.warn("Provider {} cannot request zipcode {}", finder.getClass().getSimpleName(), zipcode);
             }
         }
 
-        throw new ZipcodeNotFoundException("None of our providers can request this zipcode at the moment.");
+        throw new ZipcodeNotFoundException("None of our providers can request this zipcode at the moment");
     }
 }

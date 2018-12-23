@@ -7,30 +7,8 @@ import javax.annotation.Generated;
 @Generated("com.robohorse.robopojogenerator")
 public class CEPAbertoCidade {
 
-    @JsonProperty("ddd")
-    private int ddd;
-
-    @JsonProperty("ibge")
-    private String ibge;
-
     @JsonProperty("nome")
     private String nome;
-
-    public int getDdd() {
-        return ddd;
-    }
-
-    public void setDdd(int ddd) {
-        this.ddd = ddd;
-    }
-
-    public String getIbge() {
-        return ibge;
-    }
-
-    public void setIbge(String ibge) {
-        this.ibge = ibge;
-    }
 
     public String getNome() {
         return nome;
@@ -42,11 +20,8 @@ public class CEPAbertoCidade {
 
     @Override
     public String toString() {
-        return
-                "cidade{" +
-                        "ddd = '" + ddd + '\'' +
-                        ",ibge = '" + ibge + '\'' +
-                        ",nome = '" + nome + '\'' +
-                        "}";
+        return "CEPAbertoCidade{" +
+                "nome='" + nome + '\'' +
+                '}';
     }
 }

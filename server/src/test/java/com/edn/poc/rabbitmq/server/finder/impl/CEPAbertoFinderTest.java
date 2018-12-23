@@ -4,13 +4,13 @@ import com.edn.poc.rabbitmq.server.configuration.api.impl.CEPAbertoApiInfo;
 import com.edn.poc.rabbitmq.server.exception.ZipcodeInvalidException;
 import com.edn.poc.rabbitmq.server.exception.ZipcodeNotFoundException;
 import com.edn.poc.rabbitmq.server.model.IAddress;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
 
+import static com.edn.poc.rabbitmq.server.finder.impl.util.UtilComponents.*;
 import static org.assertj.core.api.Assertions.*;
 import static org.mockito.Mockito.*;
 
@@ -27,7 +27,7 @@ public class CEPAbertoFinderTest {
         when(apiInfo.getEndpoint()).thenReturn("api/v3/cep/");
         when(apiInfo.getToken()).thenReturn("6fa935c35e88f2e15a9e5330493e5645");
 
-        finder = new CEPAbertoFinder(apiInfo, new ObjectMapper());
+        finder = new CEPAbertoFinder(apiInfo, getObjectMapper());
     }
 
     @Test

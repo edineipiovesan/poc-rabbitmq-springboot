@@ -18,13 +18,13 @@ public class ZipCodeGeneratorService {
     public String getZipcode() throws ZipCodeGeneratorException {
         InputStream inputStream = Objects.requireNonNull(getClass()
                 .getClassLoader()
-                .getResourceAsStream("cep.csv"), "Resource not found.");
+                .getResourceAsStream("cep.csv"), "Resource not found");
 
         try (CSVReader reader = new CSVReader(new InputStreamReader(inputStream))) {
             List<String[]> csvData = reader.readAll();
             return csvData.get(new Random().nextInt(csvData.size() - 1))[0];
         } catch (IOException e) {
-            throw new ZipCodeGeneratorException("Zip Code CSV file not found.");
+            throw new ZipCodeGeneratorException("Zip Code CSV file not found");
         }
     }
 }

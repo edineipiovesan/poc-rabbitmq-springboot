@@ -7,4 +7,6 @@ public interface ApiInfo {
     String getEndpoint();
 
     String getToken();
+
+    String getFormat();
 }

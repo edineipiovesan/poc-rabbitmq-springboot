@@ -8,9 +8,6 @@ import javax.annotation.Generated;
 @Generated("com.robohorse.robopojogenerator")
 public class CEPAbertoAddress implements IAddress {
 
-    @JsonProperty("altitude")
-    private double altitude;
-
     @JsonProperty("cidade")
     private CEPAbertoCidade CEPAbertoCidade;
 
@@ -23,22 +20,8 @@ public class CEPAbertoAddress implements IAddress {
     @JsonProperty("bairro")
     private String bairro;
 
-    @JsonProperty("latitude")
-    private String latitude;
-
     @JsonProperty("cep")
     private String cep;
-
-    @JsonProperty("longitude")
-    private String longitude;
-
-    public double getAltitude() {
-        return altitude;
-    }
-
-    public void setAltitude(double altitude) {
-        this.altitude = altitude;
-    }
 
     public CEPAbertoCidade getCEPAbertoCidade() {
         return CEPAbertoCidade;
@@ -82,14 +65,6 @@ public class CEPAbertoAddress implements IAddress {
         return getCEPAbertoEstado().getSigla();
     }
 
-    public String getLatitude() {
-        return latitude;
-    }
-
-    public void setLatitude(String latitude) {
-        this.latitude = latitude;
-    }
-
     public String getCep() {
         return cep;
     }
@@ -98,26 +73,14 @@ public class CEPAbertoAddress implements IAddress {
         this.cep = cep;
     }
 
-    public String getLongitude() {
-        return longitude;
-    }
-
-    public void setLongitude(String longitude) {
-        this.longitude = longitude;
-    }
-
     @Override
     public String toString() {
-        return
-                "CEPAbertoAddress{" +
-                        "altitude = '" + altitude + '\'' +
-                        ",cidade = '" + CEPAbertoCidade + '\'' +
-                        ",estado = '" + CEPAbertoEstado + '\'' +
-                        ",logradouro = '" + logradouro + '\'' +
-                        ",bairro = '" + bairro + '\'' +
-                        ",latitude = '" + latitude + '\'' +
-                        ",cep = '" + cep + '\'' +
-                        ",longitude = '" + longitude + '\'' +
-                        "}";
+        return "CEPAbertoAddress{" +
+                "CEPAbertoCidade=" + CEPAbertoCidade +
+                ", CEPAbertoEstado=" + CEPAbertoEstado +
+                ", logradouro='" + logradouro + '\'' +
+                ", bairro='" + bairro + '\'' +
+                ", cep='" + cep + '\'' +
+                '}';
     }
 }

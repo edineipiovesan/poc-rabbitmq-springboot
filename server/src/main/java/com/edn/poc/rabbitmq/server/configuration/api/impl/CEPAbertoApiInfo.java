@@ -6,7 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.PropertySource;
 
-@Configuration
+@Configuration("CEPAbertoApiInfo")
 @PropertySource("classpath:cepaberto.properties")
 public class CEPAbertoApiInfo implements ApiInfo {
 

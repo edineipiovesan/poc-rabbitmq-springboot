@@ -16,8 +16,12 @@ import org.springframework.messaging.converter.MappingJackson2MessageConverter;
 @EnableRabbit
 public class RabbitMQConfig {
 
+    private final ApplicationConfig applicationConfig;
+
     @Autowired
-    private ApplicationConfig applicationConfig;
+    public RabbitMQConfig(ApplicationConfig applicationConfig) {
+        this.applicationConfig = applicationConfig;
+    }
 
     @Bean
     public DirectExchange exchange() {

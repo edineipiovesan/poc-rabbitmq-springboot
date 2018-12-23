@@ -11,9 +11,6 @@ public class ViaCEPAddress implements IAddress {
     @JsonProperty("uf")
     private String uf;
 
-    @JsonProperty("complemento")
-    private String complemento;
-
     @JsonProperty("logradouro")
     private String logradouro;
 
@@ -22,15 +19,6 @@ public class ViaCEPAddress implements IAddress {
 
     @JsonProperty("localidade")
     private String localidade;
-
-    @JsonProperty("ibge")
-    private String ibge;
-
-    @JsonProperty("unidade")
-    private String unidade;
-
-    @JsonProperty("gia")
-    private String gia;
 
     @JsonProperty("cep")
     private String cep;
@@ -41,14 +29,6 @@ public class ViaCEPAddress implements IAddress {
 
     public void setUf(String uf) {
         this.uf = uf;
-    }
-
-    public String getComplemento() {
-        return complemento;
-    }
-
-    public void setComplemento(String complemento) {
-        this.complemento = complemento;
     }
 
     public String getLogradouro() {
@@ -85,30 +65,6 @@ public class ViaCEPAddress implements IAddress {
         this.localidade = localidade;
     }
 
-    public String getIbge() {
-        return ibge;
-    }
-
-    public void setIbge(String ibge) {
-        this.ibge = ibge;
-    }
-
-    public String getUnidade() {
-        return unidade;
-    }
-
-    public void setUnidade(String unidade) {
-        this.unidade = unidade;
-    }
-
-    public String getGia() {
-        return gia;
-    }
-
-    public void setGia(String gia) {
-        this.gia = gia;
-    }
-
     public String getCep() {
         return cep;
     }
@@ -119,17 +75,12 @@ public class ViaCEPAddress implements IAddress {
 
     @Override
     public String toString() {
-        return
-                "ViaCEPAddress{" +
-                        "uf = '" + uf + '\'' +
-                        ",complemento = '" + complemento + '\'' +
-                        ",logradouro = '" + logradouro + '\'' +
-                        ",bairro = '" + bairro + '\'' +
-                        ",localidade = '" + localidade + '\'' +
-                        ",ibge = '" + ibge + '\'' +
-                        ",unidade = '" + unidade + '\'' +
-                        ",gia = '" + gia + '\'' +
-                        ",cep = '" + cep + '\'' +
-                        "}";
+        return "ViaCEPAddress{" +
+                "uf='" + uf + '\'' +
+                ", logradouro='" + logradouro + '\'' +
+                ", bairro='" + bairro + '\'' +
+                ", localidade='" + localidade + '\'' +
+                ", cep='" + cep + '\'' +
+                '}';
     }
 }
