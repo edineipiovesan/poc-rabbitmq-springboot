@@ -2,6 +2,7 @@ package com.edn.poc.rabbitmq.client.sender;
 
 import com.edn.poc.rabbitmq.client.configuration.ApplicationConfig;
 import com.edn.poc.rabbitmq.client.exception.ZipCodeGeneratorException;
+import com.edn.poc.rabbitmq.client.model.Address;
 import com.edn.poc.rabbitmq.client.model.IAddress;
 import com.edn.poc.rabbitmq.client.service.ZipCodeGeneratorService;
 import lombok.extern.log4j.Log4j2;
@@ -30,11 +31,11 @@ public class MessageSender {
         String routingKey = applicationConfig.getRoutingKey();
 
         String zipcode = zipCodeGeneratorService.getZipcode();
-        IAddress IAddress = rabbitTemplate.convertSendAndReceiveAsType(exchange, routingKey, zipcode, new ParameterizedTypeReference<IAddress>() {
-        });
+        Address address = rabbitTemplate.convertSendAndReceiveAsType(exchange, routingKey, zipcode,
+                new ParameterizedTypeReference<Address>() {});
 
         log.info("[x] Sent {}", zipcode);
-        log.info("[.] Received {}", IAddress);
+        log.info("[.] Received {}", address);
     }
 
 }

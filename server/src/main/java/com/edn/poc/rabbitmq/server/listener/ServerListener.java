@@ -3,34 +3,24 @@ package com.edn.poc.rabbitmq.server.listener;
 import com.edn.poc.rabbitmq.server.exception.ApiRequestException;
 import com.edn.poc.rabbitmq.server.exception.ZipcodeInvalidException;
 import com.edn.poc.rabbitmq.server.exception.ZipcodeNotFoundException;
-import com.edn.poc.rabbitmq.server.finder.ZipcodeFinder;
-import com.edn.poc.rabbitmq.server.finder.impl.CEPAbertoFinder;
-import com.edn.poc.rabbitmq.server.finder.impl.PostmonFinder;
-import com.edn.poc.rabbitmq.server.finder.impl.ViaCEPFinder;
-import com.edn.poc.rabbitmq.server.model.IAddress;
+import com.edn.poc.rabbitmq.server.provider.service.ZipcodeProvider;
+import com.edn.poc.rabbitmq.server.provider.model.IAddress;
+import com.edn.poc.rabbitmq.server.provider.ProviderRegister;
 import lombok.extern.log4j.Log4j2;
 import org.springframework.amqp.AmqpRejectAndDontRequeueException;
 import org.springframework.amqp.rabbit.annotation.RabbitListener;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import java.util.HashSet;
-import java.util.Set;
-
 @Component
 @Log4j2
 public class ServerListener {
-    private final ViaCEPFinder viaCEPFinder;
 
-    private final PostmonFinder postmonFinder;
-
-    private final CEPAbertoFinder cepAbertoFinder;
+    private final ProviderRegister providerRegister;
 
     @Autowired
-    public ServerListener(ViaCEPFinder viaCEPFinder, PostmonFinder postmonFinder, CEPAbertoFinder cepAbertoFinder) {
-        this.viaCEPFinder = viaCEPFinder;
-        this.postmonFinder = postmonFinder;
-        this.cepAbertoFinder = cepAbertoFinder;
+    public ServerListener(ProviderRegister providerRegister) {
+        this.providerRegister = providerRegister;
     }
 
     @RabbitListener(queues = "${mq.queue.request}")
@@ -52,21 +42,21 @@ public class ServerListener {
     }
 
     private IAddress findUsingAnyProvider(String zipcode) throws ZipcodeInvalidException, ZipcodeNotFoundException {
-        Set<ZipcodeFinder> providers = new HashSet<>();
-        providers.add(cepAbertoFinder);
-        providers.add(viaCEPFinder);
-        providers.add(postmonFinder);
+        ZipcodeProvider provider;
 
-        for (ZipcodeFinder finder : providers) {
+        int totalProviders = providerRegister.getTotalProviders();
+        for (int i = 0; i < totalProviders; i++) {
+            provider = providerRegister.getProvider();
+            log.error("Provider from roundrobin is {}", provider.getApiName());
             try {
-                IAddress address = finder.find(zipcode);
-                log.info("Zipcode {} found by {}", zipcode, finder.getApiName());
+                IAddress address = provider.find(zipcode);
+                log.info("Zipcode {} found by {}", zipcode, provider.getApiName());
                 return address;
             } catch (ApiRequestException e) {
-                log.warn("Provider {} cannot request zipcode {}", finder.getClass().getSimpleName(), zipcode);
+                log.warn("Provider {} cannot request zipcode {}", provider.getClass().getSimpleName(), zipcode);
             }
         }
 
-        throw new ZipcodeNotFoundException("None of our providers can request this zipcode at the moment");
+        throw new ZipcodeNotFoundException("Zipcode is not valid or none of our providers can find it at the moment");
     }
 }

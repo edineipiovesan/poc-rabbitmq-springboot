@@ -11,6 +11,7 @@ public class ComponentUtils {
     }
 
     public static ObjectMapper getObjectMapper() {
-        return new ObjectMapper().configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
+        return new ObjectMapper()
+                .configure(FAIL_ON_UNKNOWN_PROPERTIES, false);
     }
 }
