@@ -1,29 +1,27 @@
 package com.edn.poc.rabbitmq.server.listener;
 
+import com.edn.poc.rabbitmq.server.provider.ProviderRegister;
 import com.edn.poc.rabbitmq.server.provider.api.impl.CEPAbertoApiInfo;
 import com.edn.poc.rabbitmq.server.provider.api.impl.PostmonApiInfo;
 import com.edn.poc.rabbitmq.server.provider.api.impl.ViaCEPApiInfo;
+import com.edn.poc.rabbitmq.server.provider.model.IAddress;
 import com.edn.poc.rabbitmq.server.provider.service.ZipcodeProvider;
 import com.edn.poc.rabbitmq.server.provider.service.impl.CEPAbertoProvider;
 import com.edn.poc.rabbitmq.server.provider.service.impl.PostmonProvider;
 import com.edn.poc.rabbitmq.server.provider.service.impl.ViaCEPProvider;
-import com.edn.poc.rabbitmq.server.provider.model.IAddress;
-import com.edn.poc.rabbitmq.server.provider.ProviderRegister;
-import com.google.common.collect.HashMultiset;
 import com.google.common.collect.Iterables;
-import com.google.common.collect.Multiset;
-import org.apache.commons.collections4.MultiSet;
-import org.apache.commons.collections4.queue.CircularFifoQueue;
 import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
-import org.mockito.Spy;
 import org.mockito.junit.MockitoJUnitRunner;
+import org.mockito.stubbing.Answer;
 import org.springframework.amqp.AmqpRejectAndDontRequeueException;
 
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.Iterator;
+import java.util.List;
 import java.util.Set;
 
 import static com.edn.poc.rabbitmq.server.util.ComponentUtils.getObjectMapper;
@@ -46,8 +44,6 @@ public class ServerListenerTest {
     ProviderRegister providerRegister;
 
     private ServerListener serverListener;
-    private CircularFifoQueue<ZipcodeProvider> providers;
-    private Iterator<ZipcodeProvider> iterator;
 
     @Before
     public void init() {
@@ -60,64 +56,49 @@ public class ServerListenerTest {
         when(postmonApiInfo.getEndpoint()).thenReturn("v1/cep/");
         PostmonProvider postmonFinder = new PostmonProvider(postmonApiInfo, getObjectMapper());
 
-
         when(viaCEPApiInfo.getUrl()).thenReturn("https://viacep.com.br/");
         when(viaCEPApiInfo.getEndpoint()).thenReturn("ws/");
         when(viaCEPApiInfo.getFormat()).thenReturn("json");
         ViaCEPProvider viaCEPFinder = new ViaCEPProvider(viaCEPApiInfo, getObjectMapper());
 
-
-        providers = new CircularFifoQueue<>();
+        Set<ZipcodeProvider> providers = new HashSet<>();
         providers.add(cepAbertoFinder);
         providers.add(postmonFinder);
         providers.add(viaCEPFinder);
-        iterator = Iterables.cycle(providers).iterator();
+        Iterator<ZipcodeProvider> iterator = Iterables.cycle(providers).iterator();
 
-        when(providerRegister.getProvider()).thenReturn(roundRobinProvider());
+        when(providerRegister.getProvider()).thenAnswer((Answer<ZipcodeProvider>) invocation -> iterator.next());
+        when(providerRegister.getTotalProviders()).thenReturn(providers.size());
 
         serverListener = new ServerListener(providerRegister);
     }
 
-    private ZipcodeProvider roundRobinProvider() {
-        ZipcodeProvider provider = providers.remove();
-        providers.add(provider);
-        return provider;
-    }
-
     @Test
     public void listenerTest() {
-        IAddress address = serverListener.decodeZipCode("74393250");
-        assertThat(address).isNotNull();
+        List<String> zipcodes = Arrays.asList("74393250", "74170-030", "74223060", "74810-907", "04801-010");
+
+        IAddress address;
+        for (String zipcode : zipcodes) {
+            address = serverListener.decodeZipCode(zipcode);
+            assertThat(address).isNotNull();
+        }
     }
 
     @Test(expected = AmqpRejectAndDontRequeueException.class)
-    public void invalidZipcodeTest()  {
+    public void invalidZipcodeTest() {
         IAddress address = serverListener.decodeZipCode("74000000");
         assertThat(address).isNotNull();
     }
 
     @Test
     public void roundRobinTest() {
-        ZipcodeProvider provider1 = providerRegister.getProvider();
-        System.out.println(provider1.getApiName());
+        ZipcodeProvider[] providers = new ZipcodeProvider[6];
+        for (int i = 0; i < 6; i++) {
+            providers[i] = providerRegister.getProvider();
+        }
 
-        ZipcodeProvider provider2 = providerRegister.getProvider();
-        System.out.println(provider2.getApiName());
-
-        ZipcodeProvider provider3 = providerRegister.getProvider();
-        System.out.println(provider3.getApiName());
-
-        ZipcodeProvider provider4 = providerRegister.getProvider();
-        System.out.println(provider4.getApiName());
-
-        ZipcodeProvider provider5 = providerRegister.getProvider();
-        System.out.println(provider5.getApiName());
-
-        ZipcodeProvider provider6 = providerRegister.getProvider();
-        System.out.println(provider6.getApiName());
-
-        assertThat(provider1.getApiName()).isEqualTo(provider4.getApiName());
-        assertThat(provider2.getApiName()).isEqualTo(provider5.getApiName());
-        assertThat(provider3.getApiName()).isEqualTo(provider6.getApiName());
+        assertThat(providers[0].getApiName()).isEqualTo(providers[3].getApiName());
+        assertThat(providers[1].getApiName()).isEqualTo(providers[4].getApiName());
+        assertThat(providers[2].getApiName()).isEqualTo(providers[5].getApiName());
     }
 }

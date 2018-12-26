@@ -1,9 +1,9 @@
 package com.edn.poc.rabbitmq.server.provider.service.impl;
 
-import com.edn.poc.rabbitmq.server.provider.api.ApiInfo;
 import com.edn.poc.rabbitmq.server.exception.ApiRequestException;
-import com.edn.poc.rabbitmq.server.provider.service.ZipcodeProvider;
+import com.edn.poc.rabbitmq.server.provider.api.ApiInfo;
 import com.edn.poc.rabbitmq.server.provider.model.viacep.ViaCEPAddress;
+import com.edn.poc.rabbitmq.server.provider.service.ZipcodeProvider;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.mashape.unirest.http.HttpResponse;
 import com.mashape.unirest.http.Unirest;

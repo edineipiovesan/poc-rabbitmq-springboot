@@ -7,13 +7,12 @@ import org.springframework.stereotype.Service;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.security.SecureRandom;
 import java.util.List;
 import java.util.Objects;
-import java.util.Random;
 
 @Service
 public class ZipCodeGeneratorService {
-
 
     public String getZipcode() throws ZipCodeGeneratorException {
         InputStream inputStream = Objects.requireNonNull(getClass()
@@ -22,7 +21,7 @@ public class ZipCodeGeneratorService {
 
         try (CSVReader reader = new CSVReader(new InputStreamReader(inputStream))) {
             List<String[]> csvData = reader.readAll();
-            return csvData.get(new Random().nextInt(csvData.size() - 1))[0];
+            return csvData.get(new SecureRandom().nextInt(csvData.size() - 1))[0];
         } catch (IOException e) {
             throw new ZipCodeGeneratorException("Zip Code CSV file not found");
         }

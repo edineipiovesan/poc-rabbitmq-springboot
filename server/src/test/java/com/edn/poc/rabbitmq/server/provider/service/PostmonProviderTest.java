@@ -1,8 +1,8 @@
 package com.edn.poc.rabbitmq.server.provider.service;
 
-import com.edn.poc.rabbitmq.server.provider.api.ApiInfo;
 import com.edn.poc.rabbitmq.server.exception.ApiRequestException;
 import com.edn.poc.rabbitmq.server.exception.ZipcodeInvalidException;
+import com.edn.poc.rabbitmq.server.provider.api.ApiInfo;
 import com.edn.poc.rabbitmq.server.provider.model.IAddress;
 import com.edn.poc.rabbitmq.server.provider.service.impl.PostmonProvider;
 import org.junit.Before;
@@ -62,5 +62,10 @@ public class PostmonProviderTest {
     @Test(expected = ZipcodeInvalidException.class)
     public void invalidZipcodeWith5Digits() throws ZipcodeInvalidException, ApiRequestException {
         finder.find("74393");
+    }
+
+    @Test(expected = ZipcodeInvalidException.class)
+    public void invalidZipcodeWith13Digits() throws ZipcodeInvalidException, ApiRequestException {
+        finder.find("7439325001257");
     }
 }

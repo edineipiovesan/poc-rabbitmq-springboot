@@ -1,6 +1,5 @@
 package com.edn.poc.rabbitmq.server.provider.api;
 
-import com.edn.poc.rabbitmq.server.provider.api.ApiInfo;
 import com.edn.poc.rabbitmq.server.exception.ApiRequestException;
 import com.edn.poc.rabbitmq.server.exception.ZipcodeInvalidException;
 import com.edn.poc.rabbitmq.server.provider.service.ZipcodeProvider;

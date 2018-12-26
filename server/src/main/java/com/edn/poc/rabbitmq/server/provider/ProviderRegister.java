@@ -16,7 +16,7 @@ import java.util.Set;
 @Log4j2
 public class ProviderRegister {
 
-    final ApplicationContext context;
+    private final ApplicationContext context;
     private Set<ZipcodeProvider> providers;
     private Iterator<ZipcodeProvider> iterator;
 

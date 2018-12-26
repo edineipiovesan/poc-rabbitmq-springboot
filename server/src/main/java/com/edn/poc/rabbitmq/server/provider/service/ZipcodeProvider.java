@@ -18,7 +18,7 @@ public abstract class ZipcodeProvider<T extends IAddress> {
 
     protected abstract String request(String zipcode) throws ApiRequestException;
 
-    public IAddress find(String zipcode) throws ZipcodeInvalidException, ApiRequestException {
+    public T find(String zipcode) throws ZipcodeInvalidException, ApiRequestException {
         String standardizedZipcode = standardizeZipcode(zipcode);
 
         try {
