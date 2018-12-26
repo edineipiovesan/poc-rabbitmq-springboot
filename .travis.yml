@@ -41,4 +41,4 @@ jobs:
           token:
             secure: $SONAR_TOKEN
       script:
-        - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=edineipiovesan_poc-rabbitmq-springboot
+        - mvn clean org.jacoco:jacoco-maven-plugin:prepare-agent install sonar:sonar -Dsonar.projectKey=com.github.edn.rabbitmq-springboot

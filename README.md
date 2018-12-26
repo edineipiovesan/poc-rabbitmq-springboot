@@ -4,7 +4,19 @@
 [![codebeat badge](https://codebeat.co/badges/2c8cf614-4c1a-4e37-a3a4-814d39039947)](https://codebeat.co/projects/github-com-edineipiovesan-poc-rabbitmq-springboot-master)
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/296285778d074e1698087d27708a8f59)](https://app.codacy.com/app/edineipiovesan/poc-rabbitmq-springboot?utm_source=github.com&utm_medium=referral&utm_content=edineipiovesan/poc-rabbitmq-springboot&utm_campaign=Badge_Grade_Dashboard)
 [![Maintainability](https://api.codeclimate.com/v1/badges/f76fa85f8b66c74346d2/maintainability)](https://codeclimate.com/github/edineipiovesan/poc-rabbitmq-springboot/maintainability)
-[![Maintainability](https://sonarcloud.io/api/project_badges/measure?project=edineipiovesan_poc-rabbitmq-springboot&metric=alert_status)](https://sonarcloud.io/dashboard?id=edineipiovesan_poc-rabbitmq-springboot)
+
+
+[![Quality Gate](https://sonarcloud.io/api/project_badges/measure?project=com.github.edn.rabbitmq-springboot&metric=alert_status)](https://sonarcloud.io/dashboard?id=com.github.edn.rabbitmq-springboot)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=com.github.edn.rabbitmq-springboot&metric=bugs)](https://sonarcloud.io/dashboard?id=com.github.edn.rabbitmq-springboot)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=com.github.edn.rabbitmq-springboot&metric=code_smells)](https://sonarcloud.io/dashboard?id=com.github.edn.rabbitmq-springboot)
+[![Coverage](https://sonarcloud.io/api/project_badges/measure?project=com.github.edn.rabbitmq-springboot&metric=coverage)](https://sonarcloud.io/dashboard?id=com.github.edn.rabbitmq-springboot)
+[![Duplicated lines](https://sonarcloud.io/api/project_badges/measure?project=com.github.edn.rabbitmq-springboot&metric=duplicated_lines_density)](https://sonarcloud.io/dashboard?id=com.github.edn.rabbitmq-springboot)
+[![Lines of code](https://sonarcloud.io/api/project_badges/measure?project=com.github.edn.rabbitmq-springboot&metric=ncloc)](https://sonarcloud.io/dashboard?id=com.github.edn.rabbitmq-springboot)
+[![Maintainability](https://sonarcloud.io/api/project_badges/measure?project=com.github.edn.rabbitmq-springboot&metric=sqale_rating)](https://sonarcloud.io/dashboard?id=com.github.edn.rabbitmq-springboot)
+[![Reliability](https://sonarcloud.io/api/project_badges/measure?project=com.github.edn.rabbitmq-springboot&metric=reliability_rating)](https://sonarcloud.io/dashboard?id=com.github.edn.rabbitmq-springboot)
+[![Security](https://sonarcloud.io/api/project_badges/measure?project=com.github.edn.rabbitmq-springboot&metric=security_rating)](https://sonarcloud.io/dashboard?id=com.github.edn.rabbitmq-springboot)
+[![Technical debt](https://sonarcloud.io/api/project_badges/measure?project=com.github.edn.rabbitmq-springboot&metric=sqale_index)](https://sonarcloud.io/dashboard?id=com.github.edn.rabbitmq-springboot)
+[![Vulnerabilities](https://sonarcloud.io/api/project_badges/measure?project=com.github.edn.rabbitmq-springboot&metric=vulnerabilities)](https://sonarcloud.io/dashboard?id=com.github.edn.rabbitmq-springboot)
 
 Proof of concept using RabbitMQ with Spring Boot application.
 
