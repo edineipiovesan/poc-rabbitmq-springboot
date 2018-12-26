@@ -32,6 +32,7 @@ jobs:
       install: true
       script: mvn test -f client/pom.xml
     - stage: qa
+      name: "SonarQube code analysis"
       addons:
         sonarcloud:
           organization: "edineipiovesan-github"
