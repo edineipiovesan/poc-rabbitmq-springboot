@@ -34,7 +34,7 @@ public class ServerListener {
         } catch (ZipcodeInvalidException e) {
             log.error("Can not process the request: {}", e.getMessage());
         } catch (ZipcodeNotFoundException e) {
-            log.error("Zipcode not found: {}", e.getMessage());
+            log.warn("Zipcode not found: {}", e.getMessage());
         }
 
         log.warn("Sending to dead-letter queue");
@@ -47,7 +47,7 @@ public class ServerListener {
         int totalProviders = providerRegister.getTotalProviders();
         for (int i = 0; i < totalProviders; i++) {
             provider = providerRegister.getProvider();
-            log.error("Provider from roundrobin is {}", provider.getApiName());
+            log.info("Provider from roundrobin is {}", provider.getApiName());
             try {
                 IAddress address = provider.find(zipcode);
                 log.info("Zipcode {} found by {}", zipcode, provider.getApiName());
